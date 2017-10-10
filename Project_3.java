@@ -16,7 +16,8 @@ public class Main {
 		for(int i = 0; i < array.length; i++) {
 			array[i] = i + 1;
 		}
-		sieve(array);		
+		sieve(array);
+		goldbach(array);
 	
 	}
 	
@@ -41,25 +42,42 @@ public class Main {
 	
 	public static void goldbach(int[] array){
 		
-		int index = 0;
+		int count = 0;
 		int[] evens = new int[];
 		int[] primes = new int[];
 		
-		for(i = 4; i < 1000000; i + 2){
-			evens[index] = i;
-			index++;
+		//initializes array of primes w/ no zeros
+		for(int i = 0; i < array.length; i++){
+			if(array[i] != 0)
+				primes[count] = array[i];
+			count++;
 		}
 		
+		count = 0;
+		
+		//initializes array of evens 
+		for(int i = 4; i < array.length; i + 2){
+			evens[count] = i;
+			count++;
+		}
+		
+		//outputs two primes who's sum equals even
 		int small = 0;
 		int large = evens.length - 1;
 		
-		for(int count = 0; count < evens.length; count++){
+		for(int i = 0; count < evens.length; i++){
 			while (small < large){
-				if (primes[small] + primes[large] == evens[count])
-					System.out.println(primes[small] " + " primes[large] " = " evens[count]);
-				else if (primes[small + primes[large] < evens[count])
+				if (primes[small] + primes[large] == evens[i])
+					break;
+				else if (primes[small + primes[large] < evens[i])
 				small++;
 				else
 				large--;
-		}
-}		
+			}
+			if (primes[small] + primes[large] == evens[count])
+				System.out.println(primes[small] " + " primes[large] " = " evens[i]);
+			else
+				System.out.println("There is no to primes who's sum is " + evens[i]);
+			}
+			
+}
