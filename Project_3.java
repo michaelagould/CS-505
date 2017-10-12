@@ -8,7 +8,7 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		int[] array = new int[Integer.parseInt(args[1])];
+		int[] array = new int[Integer.parseInt(args[0])];
 		for(int i = 0; i < array.length; i++) {
 			array[i] = i + 1;
 		}
