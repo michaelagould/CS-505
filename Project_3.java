@@ -1,4 +1,5 @@
 import java.lang.Math;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 //Michael Gould
@@ -17,8 +18,13 @@ public class Main {
 			array[i] = i + 1;
 		}
 		sieve(array);
+		
+		for(int i = 0; i < 1000000; i++) {
+			array[i] = i + 1;
+		}
 		goldbach(array);
 	
+		
 	}
 	
 	public static void sieve(int[] array){
@@ -33,18 +39,24 @@ public class Main {
 			}
 		}
 		
-		for(int i = 0; i < array.length; i++) {
-			//code in case zeros are to be eliminated
-			//if(array[i] != 0)
-				System.out.println(array[i]);
-		}
+		for(int i = 0; i < array.length; i++)
+			System.out.print(array[i] + ",");
+		System.out.println("\n");
 	}
 	
 	public static void goldbach(int[] array){
 		
 		int count = 0;
-		int[] evens = new int[];
-		int[] primes = new int[];
+		int[] evens = new int[(array.length / 2) - 1];
+		int[] primes = new int[array.length];
+		
+		//initializes array of evens 
+		for(int i = 4; i < array.length; i = i + 2){
+			evens[count] = i;
+			count++;
+		}
+		
+		
 		
 		//initializes array of primes w/ no zeros
 		for(int i = 0; i < array.length; i++){
@@ -53,23 +65,25 @@ public class Main {
 			count++;
 		}
 		
+		
+		//if(array[i] != 0){
+			//numberOfPrimes++;
+		//}
+		
+		
 		count = 0;
 		
-		//initializes array of evens 
-		for(int i = 4; i < array.length; i + 2){
-			evens[count] = i;
-			count++;
-		}
+		
 		
 		//outputs two primes who's sum equals even
 		int small = 0;
 		int large = evens.length - 1;
 		
-		for(int i = 0; count < evens.length; i++){
+		for(int i = 0; i < evens.length; i++){
 			while (small < large){
 				if (primes[small] + primes[large] == evens[i])
 					break;
-				else if (primes[small + primes[large] < evens[i])
+				else if (primes[small] + primes[large] < evens[i])
 				small++;
 				else
 				large--;
@@ -79,5 +93,5 @@ public class Main {
 			else
 				System.out.println("There is no to primes who's sum is " + evens[i]);
 			}
-			
+	}		
 }
