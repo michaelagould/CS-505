@@ -1,6 +1,4 @@
 import java.lang.Math;
-import java.lang.reflect.Array;
-import java.util.Scanner;
 
 //Michael Gould
 //CS 505-851
@@ -10,21 +8,12 @@ public class Main {
 	
 	public static void main(String[] args){
 		
-		System.out.print("Please enter upper bound of primes to be searched: ");
-		Scanner scan = new Scanner(System.in);
-		int input = scan.nextInt();
-		int[] array = new int[input];
+		int[] array = new int[Integer.parseInt(args[1])];
 		for(int i = 0; i < array.length; i++) {
 			array[i] = i + 1;
 		}
 		sieve(array);
-		
-		for(int i = 0; i < 1000000; i++) {
-			array[i] = i + 1;
-		}
-		goldbach(array);
-	
-		
+		goldbach(array);	
 	}
 	
 	public static void sieve(int[] array){
@@ -40,8 +29,7 @@ public class Main {
 		}
 		
 		for(int i = 0; i < array.length; i++)
-			System.out.print(array[i] + ",");
-		System.out.println("\n");
+			System.out.println(array[i]);
 	}
 	
 	public static void goldbach(int[] array){
@@ -51,35 +39,25 @@ public class Main {
 		int[] primes = new int[array.length];
 		
 		//initializes array of evens 
-		for(int i = 4; i < array.length; i = i + 2){
+		for(int i = 4; i <= array.length; i = i + 2){
 			evens[count] = i;
 			count++;
 		}
-		
-		
+	
+		count = 0;
 		
 		//initializes array of primes w/ no zeros
 		for(int i = 0; i < array.length; i++){
-			if(array[i] != 0)
+			if(array[i] != 0){
 				primes[count] = array[i];
-			count++;
+				count++;
+			}
 		}
-		
-		
-		//if(array[i] != 0){
-			//numberOfPrimes++;
-		//}
-		
-		
-		count = 0;
-		
-		
-		
+				
 		//outputs two primes who's sum equals even
-		int small = 0;
-		int large = evens.length - 1;
-		
 		for(int i = 0; i < evens.length; i++){
+			int small = 0;
+			int large = count - 1;
 			while (small < large){
 				if (primes[small] + primes[large] == evens[i])
 					break;
@@ -88,8 +66,8 @@ public class Main {
 				else
 				large--;
 			}
-			if (primes[small] + primes[large] == evens[count])
-				System.out.println(primes[small] " + " primes[large] " = " evens[i]);
+			if (primes[small] + primes[large] == evens[i])
+				System.out.println(primes[small] + " + " + primes[large] + " = " + evens[i]);
 			else
 				System.out.println("There is no to primes who's sum is " + evens[i]);
 			}
