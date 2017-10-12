@@ -36,7 +36,6 @@ public class Main {
 		
 		int count = 0;
 		int[] evens = new int[(array.length / 2) - 1];
-		int[] primes = new int[array.length];
 		
 		//initializes array of evens 
 		for(int i = 4; i <= array.length; i = i + 2){
@@ -48,9 +47,17 @@ public class Main {
 		
 		//initializes array of primes w/ no zeros
 		for(int i = 0; i < array.length; i++){
-			if(array[i] != 0){
-				primes[count] = array[i];
+			if(array[i] != 0)
 				count++;
+		}
+		
+		int[] primes = new int[count];
+		count = 0;
+				
+		for(int i = 0; i<array.length; i++){
+			if (array[i] != 0) {
+			primes[count] = array[i];
+			count++;
 			}
 		}
 				
