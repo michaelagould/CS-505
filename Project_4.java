@@ -66,13 +66,24 @@ public class Rational extends Number implements Comparable<Rational>{
 	
 	private int numerator;
 	private int denominator;
-
+	
+	public double doubleValue(){return numerator/denominator;}
+	public float floatValue(){return numerator/denominator;}
+	public int intValue(){return numerator/denominator;}
+	public int longValue(){return numerator/denominator;}
+	
 	public Rational(int numerator, int denominator){
 
 		this.numerator = numerator;
 		this.denominator = denominator;
 	}
 
+	private int gcd(int first, int second){
+		if (second == 0)
+			return first;
+		return gcd(second, first%second);
+	}
+		
 	private Rational makeDenominatorSame(Rational o){
 		
 		if(this.denominator == o.denominator)
