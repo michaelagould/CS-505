@@ -10,8 +10,8 @@ public class Main {
         System.out.println(a + " * " + b + " = " + a.mul(b));
         System.out.println(a + " / " + b + " = " + a.div(b));
 
-        //System.out.println(a + " = " + a + " is " + a.equals(new Rational(1, 2)));
-        //System.out.println(a + " = " + b + " is " + a.equals(new Rational(1, 3)));
+        System.out.println(a + " = " + a + " is " + a.equals(new Rational(1, 2)));
+        System.out.println(a + " = " + b + " is " + a.equals(new Rational(1, 3)));
 
         Rational[] arr = {new Rational(7, 1), new Rational(6, 1),
                           new Rational(5, 1), new Rational(4, 1),
