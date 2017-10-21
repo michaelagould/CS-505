@@ -11,8 +11,8 @@ public class Main {
         System.out.println(a + " * " + b + " = " + a.mul(b));
         System.out.println(a + " / " + b + " = " + a.div(b));
 
-        System.out.println(a + " = " + a + " is " + a.equals(new Rational(1, 2)));
-        System.out.println(a + " = " + b + " is " + a.equals(new Rational(1, 3)));
+        //System.out.println(a + " = " + a + " is " + a.equals(new Rational(1, 2)));
+        //System.out.println(a + " = " + b + " is " + a.equals(new Rational(1, 3)));
 
         Rational[] arr = {new Rational(7, 1), new Rational(6, 1),
                           new Rational(5, 1), new Rational(4, 1),
@@ -66,16 +66,18 @@ public class Rational extends Number implements Comparable<Rational>{
 	
 	private int numerator;
 	private int denominator;
+	private int gcd;
 	
 	public double doubleValue(){return numerator/denominator;}
 	public float floatValue(){return numerator/denominator;}
 	public int intValue(){return numerator/denominator;}
-	public int longValue(){return numerator/denominator;}
+	public long longValue(){return numerator/denominator;}
 	
 	public Rational(int numerator, int denominator){
 
-		this.numerator = numerator;
-		this.denominator = denominator;
+		int gcd = gcd(numerator,denominator);
+		this.numerator = numerator/gcd;
+		this.denominator = denominator/gcd;
 	}
 
 	private int gcd(int first, int second){
@@ -98,6 +100,7 @@ public class Rational extends Number implements Comparable<Rational>{
 		return new Rational(tempA.numerator + tempB.numerator, tempA.denominator);
 	}
 
+
 	public Rational sub(Rational o){
 
 		Rational tempA = this.makeDenominatorSame(o);
@@ -108,4 +111,15 @@ public class Rational extends Number implements Comparable<Rational>{
 	public Rational mul(Rational o){
 
 		return new Rational(numerator * o.numerator, denominator * o.denominator);
+	}
+
+	public Rational div(Rational o){
+	
+	return new Rational(numerator * o.denominator, denominator * o.numerator);
+	}
+
+	public String toString(){
+	
+	return "(" + numerator + "/" + denominator + ")";
+	}
 }
