@@ -59,6 +59,7 @@ public class SortedList<E extends Comparable<? super E>> extends AbstractList<E>
 			
 			private Node curr = head;
 		}
+	}
     public void insert(E data) {
         
 		Node temp = new Node(data);
@@ -66,7 +67,14 @@ public class SortedList<E extends Comparable<? super E>> extends AbstractList<E>
     }
     
 	private Node<E> insert(Node<E> curr, Node<E> node) {
-        ...
+        
+		if(curr.next == null || node.data.compareTo(curr.next().data) <= 0){
+			node.data = curr.data;
+			node.next = node;
+			return node;
+		}
+		if(curr.data.compareTo(node.data) == -1)
+			return insert(curr.next(), node);
     }
     
 	public void remove(E key) {
@@ -74,7 +82,15 @@ public class SortedList<E extends Comparable<? super E>> extends AbstractList<E>
     }
     
 	private Node<E> remove(Node<E> curr, E key) {
-        ...
+        
+		if(curr.next() == null)
+			return curr;
+		if(curr.data.compareTo(key) == 0) {
+			curr.next = curr.next.next();
+			return curr;
+		}
+		else
+			remove(curr.next(), key);
     }
     
 	public E retrieve(int index) {
@@ -82,23 +98,25 @@ public class SortedList<E extends Comparable<? super E>> extends AbstractList<E>
     }
 	
 	private E retrieve(int index, Node curr) {
-		if (curr == null) {
+		if (curr == null)
 			return null;
-		}
-		else if (index == 0) {
+		else if (index == 0)
 			return curr.data;
-		}
-		return retrieve(index-1, curr.next);
-}
+		else
+			return retrieve(index-1, curr.next);
+	}
     
 	public boolean search(E key) {
         return search(head, key);
     }
     
-	private Node<E> search(Node<E> curr, E key) {
-        ...
+	private boolean search(Node<E> curr, E key) {
+        
+		if(curr.next() == null)
+			return false;
+		if(curr.data.compareTo(key) == 0)
+			return true;
+		else
+			search(curr.next(), key);
     }
-}
-
-
-}
+    }
