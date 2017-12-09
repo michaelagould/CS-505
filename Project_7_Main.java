@@ -19,7 +19,7 @@ public class Main {
 			tree.instert(rand.nextInt(num));
 		stop = System.currentTimeMillis();
 		System.out.println(stop - start);
-		
+		/*
 		rand = new Random(1);
 		System.out.print("remove: ");
 		start = System.currentTimeMillis();
@@ -35,6 +35,7 @@ public class Main {
 		System.out.println(stop - start);
 		
 		System.out.println(tree.root == null);
+		*/
 	}
 }
 		

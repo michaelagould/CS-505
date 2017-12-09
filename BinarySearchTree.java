@@ -64,12 +64,19 @@ public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTre
 			}
 			else if(curr.left =! null && curr.right =! null){
 				Node iop = findIOP(curr);
-				
+				E temp = curr.data;
+				curr.data = iop.data;
+				if (curr.left.data.compareTo(data) == 0) 
+					curr.left = curr.left.left;
+				else {
+					for (curr = curr.left; curr.right != iop; curr = curr.right);
+					curr.right = iop.left;
+				}
 				
 					
 		}
 			
-				 curr.left.CompareTo(key.data) < 0
+				 else if(curr.left.CompareTo(key.data) < 0)
 					return remove(curr.left, key)
 				 else
 					 return remove(curr.right, key)
