@@ -10,11 +10,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTre
 			}
 			
 			public E next(){
-				Node temp = new Node<E>(curr)
-				if(temp.left == null)	
-					return curr;
-				else
-					curr = this.left.next();
+				return findIOP(curr);
 			}
 			
 			public void remove() {
@@ -41,16 +37,70 @@ public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTre
 	}
 	
 	public boolean empty() {
-		return root == null;
+		return root = null;
 	}
 	
     public void remove(E key) {
-        ...
+        root = remove(root, key);
     }
 	
-	private Node<E> remove(Node<E> curr, E key)
+	private Node<E> remove(Node<E> curr, E key){
+		
+		int cmp;
+		if(curr == null)
+			return root;
+		
+		if(cmp = curr.data.CompareTo(key.data) == 0){
+			if(curr.left == null && curr.right == null){
+				curr.data = key.data;
+				return null;
+			}
+			else if(curr.left == null || curr.right == null){
+				if (curr.left =! null)
+					curr.data == curr.left;
+				else
+					curr.data == curr.right;
+				return null;
+			}
+			else if(curr.left =! null && curr.right =! null){
+				Node iop = findIOP(curr);
+				
+				
+					
+		}
+			
+				 curr.left.CompareTo(key.data) < 0
+					return remove(curr.left, key)
+				 else
+					 return remove(curr.right, key)
+		
+		if(curr.left == key.data || curr.right == key.data){
+			if(key.left == null && key.right == null){
+				curr.data = key.data;
+				return null;
+			}
+			else if(curr.left == null || curr.right == null){
+				if(curr.left == null)
+					curr.right == key.data;
+				else
+					curr.left == key.data;
+				return null;
+			}
+				//curr.data = curr.left != null ? curr.left : curr.right;
+			return curr;
+		}
+		else if(curr.left == null || curr.right == null){	
+			
+			return remove(curr,key); 
+		}
+		
+	}
 	
-	
+	private Node<E> findIOP(Node<E> node) {
+		Node<E> curr;
+		for (curr = node.left; curr.right != null; curr = curr.right);
+		return curr;
+	}
 
   	public boolean search(E key) {
 		return search(root, key);
