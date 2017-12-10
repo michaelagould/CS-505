@@ -1,61 +1,40 @@
+//Project 7 Main
+
+import java.util.Iterator;
+import java.util.Random;
+
 public class Main {
-
-    public static void main(String[] args) {
-
-        Rational a = new Rational(2, 4);
-        Rational b = new Rational(2, 6);
-
-        System.out.println(a + " + " + b + " = " + a.add(b));
-        System.out.println(a + " - " + b + " = " + a.sub(b));
-        System.out.println(a + " * " + b + " = " + a.mul(b));
-        System.out.println(a + " / " + b + " = " + a.div(b));
-
-        System.out.println(a + " = " + a + " is " + a.equals(new Rational(1, 2)));
-        System.out.println(a + " = " + b + " is " + a.equals(new Rational(1, 3)));
-
-        Rational[] arr = {new Rational(7, 1), new Rational(6, 1),
-                          new Rational(5, 1), new Rational(4, 1),
-                          new Rational(3, 1), new Rational(2, 1),
-                          new Rational(1, 1), new Rational(1, 2),
-                          new Rational(1, 3), new Rational(1, 4),
-                          new Rational(1, 5), new Rational(1, 6),
-                          new Rational(1, 7), new Rational(1, 8),
-                          new Rational(1, 9), new Rational(0, 1)};
-
-        selectSort(arr);
-
-        for (Rational r : arr) {
-            System.out.println(r);
-        }
-
-        Number n = new Rational(3, 2);
-
-        System.out.println(n.doubleValue());
-        System.out.println(n.floatValue());
-        System.out.println(n.intValue());
-        System.out.println(n.longValue());
-    }
-
-    public static <T extends Comparable<? super T>> void selectSort(T[] array) {
-
-        T temp;
-        int mini;
-
-        for (int i = 0; i < array.length - 1; ++i) {
-
-            mini = i;
-
-            for (int j = i + 1; j < array.length; ++j) {
-	            if (array[j].compareTo(array[mini]) < 0) {
-	                mini = j;
-	            }
-            }
-
-            if (i != mini) {
-	            temp = array[i];
-	            array[i] = array[mini];
-	            array[mini] = temp;
-            }
-        }
-    }
+	
+	public static void main(String[] args){
+		
+		BinaryTree<Integer> tree = new BinarySearchTree<Integer>();
+		Random rand;
+		int num = args.length == 1 ? Integer.parseInt(args[0]) : 10;
+		long start, stop;
+		
+		rand = new Random(1);
+		System.out.print("insert: ");
+		start = System.currentTimeMillis();
+		for (int i = 0; i < num; ++i)
+			tree.insert(rand.nextInt(num));
+		stop = System.currentTimeMillis();
+		System.out.println(stop - start);
+		rand = new Random(1);
+		System.out.print("remove: ");
+		start = System.currentTimeMillis();
+		for(int i = 0; i < num; ++i){
+			int n = rand.nextInt(num);
+			if (!tree.search(n)){
+				System.out.println("fail");
+				System.exit(0);
+			}
+		}
+		stop = System.currentTimeMillis();
+		System.out.println(stop - start);
+		
+		System.out.println(tree.root == null);
+		
+	}
+	
 }
+		

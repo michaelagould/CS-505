@@ -1,131 +1,115 @@
 import java.util.Iterator;
+import java.util.Stack;
 
 public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTree<E> {
+	
+	public int size = 0; 
+	
+	public Iterator<E> iterator(){
+		return new Iterator<E>(){
+			
+			private Stack<Node> stack = new Stack<>();
+		    private Node<E> curr = root;
+			
+		    public E next() {
+		        while (curr != null) {
+		            stack.push(curr);
+		            curr = curr.left;
+		        }
 
-	Iterator<E> iterator(){
-		returns new Iterator<E>(){
-			
-			public boolean hasNext(){
-				return curr.right != null;
-			}
-			
-			public E next(){
-				return findIOP(curr);
-			}
+		        curr = stack.pop();
+		        Node<E> node = curr;
+		        curr = curr.right;
+
+		        return (E) node;
+		    }
+
+		    public boolean hasNext() {
+		        return (!stack.isEmpty() || curr != null);
+		    }
 			
 			public void remove() {
 			throw new UnsupportedOperationException();
-			}
-			
-			private Node curr = root;
-		}
+			}	
+		};
 	}
 	
 	public void insert(E data) {
 		Node<E> temp = new Node<E>(data);
 		root = insert(root, temp);
+		size++;
 	}
 	
 	private Node<E> insert(Node<E> curr, Node<E> node) {
-		int cmp;
-		if(curr.empty())
+		
+		if(curr == null)
 			return node;
-		else if(cmp = curr.compareTo(node) <= 0)
-			return insert(curr.left, node);
+		else if(curr.data.compareTo(node.data) <= 0)
+			curr.right = insert(curr.right, node);
 		else
-			return insert(curr.right. node);
+			curr.left = insert(curr.left, node);
+		return curr;
 	}
 	
 	public boolean empty() {
-		return root = null;
+		return root == null;
 	}
 	
     public void remove(E key) {
         root = remove(root, key);
     }
-	
+    
 	private Node<E> remove(Node<E> curr, E key){
 		
-		int cmp;
 		if(curr == null)
-			return root;
-		
-		if(cmp = curr.data.CompareTo(key.data) == 0){
-			if(curr.left == null && curr.right == null){
-				curr.data = key.data;
-				return null;
-			}
-			else if(curr.left == null || curr.right == null){
-				if (curr.left =! null)
-					curr.data == curr.left;
-				else
-					curr.data == curr.right;
-				return null;
-			}
-			else if(curr.left =! null && curr.right =! null){
-				Node iop = findIOP(curr);
-				E temp = curr.data;
-				curr.data = iop.data;
-				if (curr.left.data.compareTo(data) == 0) 
-					curr.left = curr.left.left;
-				else {
-					for (curr = curr.left; curr.right != iop; curr = curr.right);
-					curr.right = iop.left;
-				}
-				
-					
-		}
-			
-				 else if(curr.left.CompareTo(key.data) < 0)
-					return remove(curr.left, key)
-				 else
-					 return remove(curr.right, key)
-		
-		if(curr.left == key.data || curr.right == key.data){
-			if(key.left == null && key.right == null){
-				curr.data = key.data;
-				return null;
-			}
-			else if(curr.left == null || curr.right == null){
-				if(curr.left == null)
-					curr.right == key.data;
-				else
-					curr.left == key.data;
-				return null;
-			}
-				//curr.data = curr.left != null ? curr.left : curr.right;
 			return curr;
-		}
-		else if(curr.left == null || curr.right == null){	
-			
-			return remove(curr,key); 
-		}
 		
+		if (curr.data.compareTo(key) > 0)
+            curr.left = remove(curr.left, key);
+        else if (curr.data.compareTo(key) < 0)
+            curr.right = remove(curr.right, key);
+        else{
+        	
+        	if (curr.left == null)
+        		return curr.right;
+        	else if (curr.right == null)
+        		return curr.left;	
+        	curr.data = findIOP(curr).data;
+        	curr.left = remove(curr.left, curr.data);
+        }
+        return curr;
 	}
-	
+
 	private Node<E> findIOP(Node<E> node) {
 		Node<E> curr;
 		for (curr = node.left; curr.right != null; curr = curr.right);
 		return curr;
 	}
-
+	/*
+	private Node<E> smallest(Node<E> curr)
+    {
+        Node<E> smallest = curr.data;
+        while (curr.left != null)
+        {
+            smallest = curr.left.data;
+            curr = curr.left;
+        }
+        return smallest;
+    }
+	*/
   	public boolean search(E key) {
 		return search(root, key);
 	}
 	
-	private boolean search(Node<E> curr,E key) {
-		Node<E> curr = root;
-		int cmp;
+	private boolean search(Node<E> curr, E key) {
+		
 		if(curr == null)
 			return false;
-		if ((cmp = key.compareTo(curr.data)) == 0) 
+		else if (key.compareTo(curr.data) == 0) 
 			return true;
-		else if (cmp < 0)
-			search(curr.left, key);
+		else if (key.compareTo(curr.data) < 0)
+			return search(curr.left, key);
 		else
-			search(curr.right, key);
-        
-    }
-	
-}
+			return search(curr.right, key);   
+    }	
 }
